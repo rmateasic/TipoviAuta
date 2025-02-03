@@ -1,16 +1,24 @@
--- Ovo je SQL skripta tipovi auta
 
-use master;
-go
 
-drop database if exists tipoviauta;
-go
+-- Zamjeniti db_a98acf_edunovawp5 s imenom svoje baze
 
-create database tipoviauta collate Croatian_CI_AS;
-go
+SELECT name, collation_name FROM sys.databases;
+GO
+ALTER DATABASE db_ab267a_tipoviauta SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE db_ab267a_tipoviauta COLLATE Croatian_CI_AS;
+GO
+ALTER DATABASE db_ab267a_tipoviauta SET MULTI_USER;
+GO
+SELECT name, collation_name FROM sys.databases;
+GO
 
-use tipoviauta;
-go
+
+
+
+
+
 
 create table proizvodjaci(
 sifra int not null primary key identity(1,1),

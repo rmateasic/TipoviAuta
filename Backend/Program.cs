@@ -14,9 +14,23 @@ builder.Services.AddDbContext<TipoviAutaContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("TipoviAutaContext"));
 });
 
+builder.Services.AddCors(o => {
+    o.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+
+
+
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.MapOpenApi();
 
    
 app.UseHttpsRedirection();
