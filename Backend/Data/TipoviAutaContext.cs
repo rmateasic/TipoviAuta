@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Backend.Models;
 
 namespace Backend.Data
 {
@@ -10,6 +11,7 @@ namespace Backend.Data
         }
 
         public DbSet<Models.Proizvodjac> Proizvodjaci { get; set; }
+        public DbSet<Models.VrstaAuta> VrsteAuta { get; set; }
 
     }
 }
