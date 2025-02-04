@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
     [ApiController]
-    [Route("api/v1[controller]")]
+    [Route("api/v1/[controller]")]
     public class ProizvodjacController : ControllerBase
     {
         private readonly TipoviAutaContext _context;
