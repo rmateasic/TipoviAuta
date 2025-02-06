@@ -46,4 +46,6 @@ app.UseSwaggerUI(o =>
 
 app.MapControllers();
 
+app.UseCors("CorsPolicy");
+
 app.Run();
