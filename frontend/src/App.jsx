@@ -18,19 +18,15 @@ function App() {
       </div>
       <h1>
         Edunova
-      </h1>
-      <p className='grad'>Osijek</p>
+        </h1>
+        <p className='grad'>Osijek</p>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => setCount((count) => count + 2)}>
+          Vrijednost brojača je {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     
     </>
   )
 }
