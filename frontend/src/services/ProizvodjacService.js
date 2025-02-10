@@ -4,7 +4,8 @@ import { HttpService } from "./HttpService";
 async function get() {
     return await HttpService.get('/Proizvodjac')
     .then((odgovor)=>{
-        console.table(odgovor.data)
+        //console.table(odgovor.data)
+        return odgovor.data;
     })
     .catch((e)=>{})
 }
