@@ -1,7 +1,8 @@
 export const RoutNames={
     HOME: '/',
 
-    PROIZVODJAC_PREGLED: '/proizvodjaci' 
+    PROIZVODJAC_PREGLED: '/proizvodjaci', 
+    PROIZVODJAC_NOVI: '/proizvodjaci/dodaj'
 }
 
 

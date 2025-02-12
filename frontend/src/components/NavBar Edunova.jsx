@@ -30,6 +30,7 @@ export default function NavBarEdunova(){
                     >Prizvodjaci</NavDropdown.Item>
                    
                     </NavDropdown>
+                    <Nav.Link href='https://rmateasic-001-site1.ntempurl.com/swagger' target='_blank'>Swagger</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
