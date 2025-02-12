@@ -1,4 +1,4 @@
-
+﻿
 
 -- Zamjeniti db_a98acf_edunovawp5 s imenom svoje baze
 
@@ -44,17 +44,17 @@ vrsteauta int not null references vrsteauta(sifra)
 insert into proizvodjaci(naziv, zemlja)
 values
 --1
-('Bmw', 'Njema?ka'),
+('Bmw', 'Njemačka'),
 --2
-('Mercedes', 'Njema?ka'),
+('Mercedes', 'Njemačka'),
 --3
 ('Ferrari', 'Italija'),
 --4
 ('Alfa_romeo', 'Italija'),
 --5
-('Cupra', '�panjolska'),
+('Cupra', 'Španjolska'),
 --6
-('Seat', '�panjolska'),
+('Seat', 'Španjolska'),
 --7
 ('Renault','Francuska'),
 --8
