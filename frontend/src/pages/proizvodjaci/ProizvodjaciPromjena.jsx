@@ -1,15 +1,28 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { RoutNames } from "../../constant";
 import ProizvodjacService from "../../services/ProizvodjacService";
+import { useEffect, useState } from "react";
 
 
-export default function ProizvodjaciDodaj(){
+export default function ProizvodjaciPromjena(){
 
     const navigate = useNavigate();
+    const [proizvodjac, setProizvodjaci] = useState();
+    const routeParams = useParams();
+
+    async function dohvatiProizvodjace(){
+        const odgovor = await ProizvodjacService.getBySifra(routeParams.sifra)
+        setProizvodjaci(odgovor)
+    }
+
+
+    useEffect(()=>{
+        dohvatiProizvodjace();
+    }, []);
 
     async function dodaj(proizvodjac){
-        const odgovor = await ProizvodjacService.dodaj(proizvodjac)
+        const odgovor = ProizvodjacService.dodaj(proizvodjac)
         if((await odgovor).greska){
             alert(odgovor.poruka)
             return

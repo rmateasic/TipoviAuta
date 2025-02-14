@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import ProizvodjacService from "../../services/ProizvodjacService"
-import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Table } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { RoutNames } from "../../constant";
 
 
 export default function ProizvodjaciPregled(){
 
 const[proizvodjaci, setProizvodjaci] = useState();
+const navigate = useNavigate();
  
     async function dohvatiProizvodjace() {
 
@@ -26,12 +27,13 @@ const[proizvodjaci, setProizvodjaci] = useState();
         <Link
         to={RoutNames.PROIZVODJAC_NOVI}
         className="btn btn-success siroko"
-        >Dodaj novog proizvodjaca</Link>
+        >Dodaj novog proizvođača</Link>
         <Table striped bordered hover responsive>
             <thead>
                 <tr>
                     <th>Naziv</th>
                     <th>Zemlja</th>
+                    <th>Akcija</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +44,11 @@ const[proizvodjaci, setProizvodjaci] = useState();
                         </td>
                         <td>
                             {proizvodjac.zemlja}
+                        </td>
+                        <td>
+                            <Button
+                            onClick={()=>navigate(`/proizvodjaci/${proizvodjac.sifra}`)}
+                            >Promjena</Button>
                         </td>
                     </tr>
                 ))}
