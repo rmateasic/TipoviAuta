@@ -27,7 +27,7 @@ export default function NavBarEdunova(){
                     <NavDropdown title="Programi" id="basic-nav-dropdown">
                     <NavDropdown.Item 
                     onClick={()=>navigate(RoutNames.PROIZVODJAC_PREGLED)}
-                    >Prizvodjaci</NavDropdown.Item>
+                    >Prizvođači</NavDropdown.Item>
                    
                     </NavDropdown>
                     <Nav.Link href='https://rmateasic-001-site1.ntempurl.com/swagger' target='_blank'>Swagger</Nav.Link>
