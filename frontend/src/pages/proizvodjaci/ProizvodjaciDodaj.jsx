@@ -10,7 +10,7 @@ export default function ProizvodjaciDodaj(){
 
     async function dodaj(proizvodjac){
         const odgovor = await ProizvodjacService.dodaj(proizvodjac)
-        if((await odgovor).greska){
+        if((odgovor).greska){
             alert(odgovor.poruka)
             return
         }
