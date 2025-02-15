@@ -8,12 +8,12 @@ import { useEffect, useState } from "react";
 export default function ProizvodjaciPromjena(){
 
     const navigate = useNavigate();
-    const [proizvodjac, setProizvodjaci] = useState();
+    const [proizvodjac, setProizvodjac] = useState({});
     const routeParams = useParams();
 
     async function dohvatiProizvodjace(){
         const odgovor = await ProizvodjacService.getBySifra(routeParams.sifra)
-        setProizvodjaci(odgovor)
+        setProizvodjac(odgovor)
     }
 
 
@@ -51,12 +51,12 @@ export default function ProizvodjaciPromjena(){
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required />
+                <Form.Control type="text" name="naziv" required defaultValue={proizvodjac.naziv}/>
             </Form.Group>
 
             <Form.Group controlId="zemlja">
                 <Form.Label>Zemlja</Form.Label>
-                <Form.Control type="text" name="zemlja" required />
+                <Form.Control type="text" name="zemlja" required defaultValue={proizvodjac.zemlja}/>
             </Form.Group>
 
             <hr/>
