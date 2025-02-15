@@ -23,7 +23,7 @@ export default function ProizvodjaciPromjena(){
 
     async function dodaj(proizvodjac){
         const odgovor = ProizvodjacService.dodaj(proizvodjac)
-        if((await odgovor).greska){
+        if((odgovor).greska){
             alert(odgovor.poruka)
             return
         }
