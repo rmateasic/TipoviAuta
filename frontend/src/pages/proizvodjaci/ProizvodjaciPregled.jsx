@@ -22,6 +22,22 @@ const navigate = useNavigate();
         dohvatiProizvodjace();
     }, [])
 
+    function obrisi(sifra){
+        if(!confirm('Sigurno obrisati')){
+            return
+        }
+        brisanjeProizvoda(sifra);
+    }
+
+    async function brisanjeProizvoda(sifra) {
+        const odgovor = await ProizvodjacService.obrisi(sifra);
+        if(odgovor.greska){
+            alert(odgovor.poruka);
+            return;
+        }
+        dohvatiProizvodjace();
+    }
+
     return(
         <>
         <Link
@@ -49,6 +65,11 @@ const navigate = useNavigate();
                             <Button
                             onClick={()=>navigate(`/proizvodjaci/${proizvodjac.sifra}`)}
                             >Promjena</Button>
+                            &nbsp;&nbsp;&nbsp;
+                            <Button
+                            variant="danger"
+                            onClick={()=>obrisi(proizvodjac.sifra)}
+                            >Obriši</Button>
                         </td>
                     </tr>
                 ))}

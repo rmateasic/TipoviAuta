@@ -21,8 +21,8 @@ export default function ProizvodjaciPromjena(){
         dohvatiProizvodjace();
     }, []);
 
-    async function dodaj(proizvodjac){
-        const odgovor = ProizvodjacService.dodaj(proizvodjac)
+    async function promjena(proizvodjac){
+        const odgovor = await ProizvodjacService.promjena(routeParams.sifra, proizvodjac);
         if((odgovor).greska){
             alert(odgovor.poruka)
             return
@@ -36,7 +36,7 @@ export default function ProizvodjaciPromjena(){
 
         let podaci = new FormData(e.target);
 
-        dodaj(
+        promjena(
 
             {
             naziv: podaci.get('naziv'),
@@ -47,7 +47,7 @@ export default function ProizvodjaciPromjena(){
 
     return(
         <>
-        Dodavanje proizvođača
+        Promjena proizvođača
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
@@ -70,7 +70,7 @@ export default function ProizvodjaciPromjena(){
             </Col>
             <Col xs={6} sm={12} md={9} lg={6} xl={6} xxl={6}>
                 <Button variant="success" type="submit" className="siroko">
-                    Dodaj proizvođača
+                    Promjeni proizvođača
                 </Button>
             </Col>
         </Row>

@@ -27,9 +27,22 @@ async function dodaj(proizvodjac){
 .catch(()=>{return{greska:true, poruka:'Problem kod dodavanja'}})
 }
 
+async function promjena(sifra,proizvodjac){
+    return HttpService.put('/Proizvodjac/' + sifra, proizvodjac)
+    .then(()=>{return{greska: false, poruka: 'Promjenjeno'}})
+.catch(()=>{return{greska:true, poruka:'Problem kod promjene'}})
+}
+
+async function obrisi(sifra){
+    return HttpService.delete('/Proizvodjac/' + sifra)
+    .then(()=>{return{greska: false, poruka: 'Obrisano'}})
+.catch(()=>{return{greska:true, poruka:'Problem kod brisanja'}})
+}
 
 export default{
     get,
     getBySifra,
-    dodaj
+    dodaj,
+    promjena,
+    obrisi
 }
