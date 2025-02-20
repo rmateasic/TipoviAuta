@@ -136,7 +136,7 @@ namespace Backend.Controllers
 
                 e = _mapper.Map(dto, e);
                 e.Proizvodjac = es;
-                _context.Proizvodjaci.Update(e);
+                _context.Proizvodjaci.Update(es);
                 _context.SaveChanges();
 
                 return Ok(new { poruka = "Uspješno promjenjeno" });
@@ -236,7 +236,6 @@ namespace Backend.Controllers
                 {
                     return BadRequest("Ne postoji vrsta auta s šifrom " + vrstaautaSifra + " u bazi");
                 }
-                automobil.VrsteAuta.Add(vrstaauta);
                 _context.Automobili.Update(automobil);
                 _context.SaveChanges();
                 return Ok(new
@@ -255,39 +254,38 @@ namespace Backend.Controllers
 
 
         [HttpDelete]
-        [Route("{sifra:int}/obrisi/{polaznikSifra:int}")]
-        public IActionResult ObrisiPolaznika(int sifra, int polaznikSifra)
+        [Route("{sifra:int}/obrisi/{vrstaautaSifra:int}")]
+        public IActionResult ObrisiVrstuAuta(int sifra, int vrstaautaSifra)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if (sifra <= 0 || polaznikSifra <= 0)
+            if (sifra <= 0 || vrstaautaSifra <= 0)
             {
-                return BadRequest("Šifra grupe ili polaznika nije dobra");
+                return BadRequest("Šifra grupe ili Vrsta Auta nije dobra");
             }
             try
             {
-                var grupa = _context.Grupe
-                    .Include(g => g.Polaznici)
+                var automobil = _context.Automobili
+                    .Include(g => g.VrsteAuta)
                     .FirstOrDefault(g => g.Sifra == sifra);
-                if (grupa == null)
+                if (automobil == null)
                 {
                     return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
                 }
-                var polaznik = _context.Polaznici.Find(polaznikSifra);
-                if (polaznik == null)
+                var vrstaauta = _context.VrsteAuta.Find(vrstaautaSifra);
+                if (vrstaauta == null)
                 {
-                    return BadRequest("Ne postoji polaznik s šifrom " + polaznikSifra + " u bazi");
+                    return BadRequest("Ne postoji Vrsta Auta s šifrom " + vrstaautaSifra + " u bazi");
                 }
-                grupa.Polaznici.Remove(polaznik);
-                _context.Grupe.Update(grupa);
+                _context.Automobili.Update(automobil);
                 _context.SaveChanges();
 
                 return Ok(new
                 {
-                    poruka = "Polaznik " + polaznik.Prezime + " " + polaznik.Ime + " obrisan iz grupe "
-                 + grupa.Naziv
+                    poruka = "Vrsta Auta " + vrstaauta.Naziv + " obrisan iz grupe "
+                 + automobil.Naziv
                 });
             }
             catch (Exception ex)
