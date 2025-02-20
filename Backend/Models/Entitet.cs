@@ -5,7 +5,7 @@ namespace Backend.Models
     public abstract class Entitet
     {
         [Key]
-        public int Sifra { get; set; }
+        public int? Sifra { get; set; }
 
     }
 }

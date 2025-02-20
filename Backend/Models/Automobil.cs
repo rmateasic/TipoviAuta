@@ -15,7 +15,7 @@ namespace Backend.Models
         [ForeignKey("proizvodjac")]
         public required Proizvodjac Proizvodjac { get; set; }
 
-        [ForeignKey("vrstaAuta")]
+        [ForeignKey("vrstaauta")]
         public required VrstaAuta VrstaAuta { get; set; }
     }
 }
