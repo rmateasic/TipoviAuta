@@ -8,10 +8,10 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class VrstaAutaController(TipoviAutaContext context, IMapper mapper) : BackendController(context, mapper)
+    public class ProizvodjacController(TipoviAutaContext context, IMapper mapper) : BackendController(context, mapper)
     {
         [HttpGet]
-        public ActionResult<List<VrstaAutaDTORead>> Get()
+        public ActionResult<List<ProizvodjacDTORead>> Get()
         {
             if (!ModelState.IsValid)
             {
@@ -19,7 +19,7 @@ namespace Backend.Controllers
             }
             try
             {
-                return Ok(_mapper.Map<List<VrstaAutaDTORead>>(_context.VrsteAuta));
+                return Ok(_mapper.Map<List<ProizvodjacDTORead>>(_context.Proizvodjaci));
             }
             catch (Exception ex)
             {
@@ -31,16 +31,16 @@ namespace Backend.Controllers
 
         [HttpGet]
         [Route("{sifra:int}")]
-        public ActionResult<VrstaAutaDTORead> GetBySifra(int sifra)
+        public ActionResult<ProizvodjacDTORead> GetBySifra(int sifra)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { poruka = ModelState });
             }
-            VrstaAuta? e;
+            Proizvodjac? e;
             try
             {
-                e = _context.VrsteAuta.Find(sifra);
+                e = _context.Proizvodjaci.Find(sifra);
             }
             catch (Exception ex)
             {
@@ -48,14 +48,14 @@ namespace Backend.Controllers
             }
             if (e == null)
             {
-                return NotFound(new { poruka = "Vrsta Auta ne postoji u bazi" });
+                return NotFound(new { poruka = "Proizvodjac ne postoji u bazi" });
             }
 
-            return Ok(_mapper.Map<VrstaAutaDTORead>(e));
+            return Ok(_mapper.Map<ProizvodjacDTORead>(e));
         }
 
         [HttpPost]
-        public IActionResult Post(VrstaAutaDTOInsertUpdate dto)
+        public IActionResult Post(ProizvodjacDTOInsertUpdate dto)
         {
             if (!ModelState.IsValid)
             {
@@ -63,10 +63,10 @@ namespace Backend.Controllers
             }
             try
             {
-                var e = _mapper.Map<VrstaAuta>(dto);
-                _context.VrsteAuta.Add(e);
+                var e = _mapper.Map<Proizvodjac>(dto);
+                _context.Proizvodjaci.Add(e);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, _mapper.Map<VrstaAutaDTORead>(e));
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<ProizvodjacDTORead>(e));
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace Backend.Controllers
         [HttpPut]
         [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int sifra, VrstaAutaDTOInsertUpdate dto)
+        public IActionResult Put(int sifra, ProizvodjacDTOInsertUpdate dto)
         {
             if (!ModelState.IsValid)
             {
@@ -88,10 +88,10 @@ namespace Backend.Controllers
             }
             try
             {
-                VrstaAuta? e;
+                Proizvodjac? e;
                 try
                 {
-                    e = _context.VrsteAuta.Find(sifra);
+                    e = _context.Proizvodjaci.Find(sifra);
                 }
                 catch (Exception ex)
                 {
@@ -99,11 +99,12 @@ namespace Backend.Controllers
                 }
                 if (e == null)
                 {
-                    return NotFound(new { poruka = "Vrsta Auta ne postoji u bazi" });
+                    return NotFound(new { poruka = "Proizvodjac ne postoji u bazi" });
                 }
+
                 e = _mapper.Map(dto, e);
 
-                _context.VrsteAuta.Update(e);
+                _context.Proizvodjaci.Update(e);
                 _context.SaveChanges();
 
                 return Ok(new { poruka = "Uspješno promjenjeno" });
@@ -126,10 +127,10 @@ namespace Backend.Controllers
             }
             try
             {
-                VrstaAuta? e;
+                Proizvodjac? e;
                 try
                 {
-                    e = _context.VrsteAuta.Find(sifra);
+                    e = _context.Proizvodjaci.Find(sifra);
                 }
                 catch (Exception ex)
                 {
@@ -137,9 +138,9 @@ namespace Backend.Controllers
                 }
                 if (e == null)
                 {
-                    return NotFound("Vrsta Auta ne postoji u bazi");
+                    return NotFound("Proizvodjac ne postoji u bazi");
                 }
-                _context.VrsteAuta.Remove(e);
+                _context.Proizvodjaci.Remove(e);
                 _context.SaveChanges();
                 return Ok(new { poruka = "Uspješno obrisano" });
             }

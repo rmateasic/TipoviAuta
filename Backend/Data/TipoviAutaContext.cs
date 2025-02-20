@@ -10,8 +10,17 @@ namespace Backend.Data
 
         }
 
-        public DbSet<Models.Proizvodjac> Proizvodjaci { get; set; }
-        public DbSet<Models.VrstaAuta> VrsteAuta { get; set; }
+        public DbSet<Proizvodjac> Proizvodjaci { get; set; }
+        public DbSet<VrstaAuta> VrsteAuta { get; set; }
+
+        public DbSet<Automobil> Automobili { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Automobil>().HasOne(g => g.Proizvodjac);
+
+            modelBuilder.Entity<Automobil>().HasOne(g => g.VrsteAuta);
+        }
 
     }
 }
