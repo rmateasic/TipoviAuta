@@ -19,13 +19,10 @@ namespace Backend.Mapping
             CreateMap<Automobil, AutomobilDTORead>()
                 .ForCtorParam(
                     "ProizvodjacNaziv",
-                    opt => opt.MapFrom(src => src.Proizvodjac.Naziv)
-                    );
-
-            CreateMap<Automobil, AutomobilDTORead>()
-                .ForCtorParam(
+                    opt => opt.MapFrom(src => src.Proizvodjac.Naziv))
+                    .ForCtorParam(
                     "VrstaAutaNaziv",
-                    opt => opt.MapFrom(src => src.VrsteAuta.Naziv)
+                    opt => opt.MapFrom(src => src.VrstaAuta.Naziv)
                     );
 
 
@@ -36,7 +33,7 @@ namespace Backend.Mapping
 
             CreateMap<Automobil, AutomobilDTOInsertUpdate>().ForMember(
                     dest => dest.VrstaAutaSifra,
-                    opt => opt.MapFrom(src => src.VrsteAuta.Sifra)
+                    opt => opt.MapFrom(src => src.VrstaAuta.Sifra)
                     );
 
             CreateMap<AutomobilDTOInsertUpdate, Automobil>();

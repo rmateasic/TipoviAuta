@@ -21,7 +21,7 @@ namespace Backend.Controllers
             }
             try
             {
-                return Ok(_mapper.Map<List<AutomobilDTORead>>(_context.Automobili.Include(g => g.Proizvodjac)));
+                return Ok(_mapper.Map<List<AutomobilDTORead>>(_context.Automobili.Include(g => g.Proizvodjac).Include(g=>g.VrstaAuta)));
             }
             catch (Exception ex)
             {
@@ -194,13 +194,13 @@ namespace Backend.Controllers
             try
             {
                 var p = _context.Automobili
-                    .Include(i => i.VrsteAuta).FirstOrDefault(x => x.Sifra == sifraAutomobili);
+                    .Include(i => i.VrstaAuta).FirstOrDefault(x => x.Sifra == sifraAutomobili);
                 if (p == null)
                 {
                     return BadRequest("Ne postoji grupa s šifrom " + sifraAutomobili + " u bazi");
                 }
 
-                return Ok(_mapper.Map<List<VrstaAutaDTORead>>(p.VrsteAuta));
+                return Ok(_mapper.Map<List<VrstaAutaDTORead>>(p.VrstaAuta));
             }
             catch (Exception ex)
             {
@@ -225,7 +225,7 @@ namespace Backend.Controllers
             try
             {
                 var automobil = _context.Automobili
-                    .Include(g => g.VrsteAuta)
+                    .Include(g => g.VrstaAuta)
                     .FirstOrDefault(g => g.Sifra == sifra);
                 if (automobil == null)
                 {
@@ -268,7 +268,7 @@ namespace Backend.Controllers
             try
             {
                 var automobil = _context.Automobili
-                    .Include(g => g.VrsteAuta)
+                    .Include(g => g.VrstaAuta)
                     .FirstOrDefault(g => g.Sifra == sifra);
                 if (automobil == null)
                 {

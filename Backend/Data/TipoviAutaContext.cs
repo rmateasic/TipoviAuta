@@ -19,7 +19,7 @@ namespace Backend.Data
         {
             modelBuilder.Entity<Automobil>().HasOne(g => g.Proizvodjac);
 
-            modelBuilder.Entity<Automobil>().HasOne(g => g.VrsteAuta);
+            modelBuilder.Entity<Automobil>().HasOne(g => g.VrstaAuta);
         }
 
     }
