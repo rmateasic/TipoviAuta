@@ -42,8 +42,8 @@ namespace Backend.Controllers
             Automobil? e;
             try
             {
-                e = _context.Automobili.Include(g => g.Proizvodjac).FirstOrDefault(g => g.Sifra == sifra);
-                e = _context.Automobili.Include(g => g.VrstaAuta).FirstOrDefault(g => g.Sifra == sifra);
+                e = _context.Automobili.Include(g => g.Proizvodjac).Include(g => g.VrstaAuta).FirstOrDefault(g => g.Sifra == sifra);
+   
             }
             catch (Exception ex)
             {
@@ -65,6 +65,7 @@ namespace Backend.Controllers
                 return BadRequest(new { poruka = ModelState });
             }
 
+         
             Proizvodjac? es;
             try
             {
@@ -125,8 +126,8 @@ namespace Backend.Controllers
                 Automobil? e;
                 try
                 {
-                    e = _context.Automobili.Include(g => g.Proizvodjac).FirstOrDefault(x => x.Sifra == sifra);
-                    e = _context.Automobili.Include(g => g.VrstaAuta).FirstOrDefault(x => x.Sifra == sifra);
+                    e = _context.Automobili.Include(g => g.Proizvodjac).Include(g => g.VrstaAuta).FirstOrDefault(x => x.Sifra == sifra);
+                
                 }
                 catch (Exception ex)
                 {
@@ -211,231 +212,6 @@ namespace Backend.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { poruka = ex.Message });
-            }
-        }
-
-
-        [HttpGet]
-        [Route("Proizvodjaci/{sifraAutomobili:int}")]
-        public ActionResult<List<ProizvodjacDTORead>> GetProizvodjaci(int sifraAutomobili)
-        {
-            if (!ModelState.IsValid || sifraAutomobili <= 0)
-            {
-                return BadRequest(ModelState);
-            }
-            try
-            {
-                var p = _context.Automobili
-                    .Include(i => i.Proizvodjac).FirstOrDefault(x => x.Sifra == sifraAutomobili);
-                if (p == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifraAutomobili + " u bazi");
-                }
-
-                return Ok(_mapper.Map<List<ProizvodjacDTORead>>(p.Proizvodjac));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { poruka = ex.Message });
-            }
-        }
-
-
-        [HttpGet]
-        [Route("VrsteAuta/{sifraAutomobili:int}")]
-        public ActionResult<List<VrstaAutaDTORead>> GetVrsteAuta(int sifraAutomobili)
-        {
-            if (!ModelState.IsValid || sifraAutomobili <= 0)
-            {
-                return BadRequest(ModelState);
-            }
-            try
-            {
-                var p = _context.Automobili
-                    .Include(i => i.VrstaAuta).FirstOrDefault(x => x.Sifra == sifraAutomobili);
-                if (p == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifraAutomobili + " u bazi");
-                }
-
-                return Ok(_mapper.Map<List<VrstaAutaDTORead>>(p.VrstaAuta));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { poruka = ex.Message });
-            }
-        }
-
-
-        [HttpPost]
-        [Route("{sifra:int}/dodaj/{proizvodjacSifra:int}")]
-        public IActionResult DodajProizvodjaca(int sifra, int proizvodjacSifra)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (sifra <= 0 || proizvodjacSifra <= 0)
-            {
-                return BadRequest("Šifra grupe ili proizvođača nije dobra");
-            }
-            try
-            {
-                var automobil = _context.Automobili
-                    .Include(g => g.Proizvodjac)
-                    .FirstOrDefault(g => g.Sifra == sifra);
-                if (automobil == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
-                }
-                var proizvodjac = _context.VrsteAuta.Find(proizvodjacSifra);
-                if (proizvodjac == null)
-                {
-                    return BadRequest("Ne postoji vrsta auta s šifrom " + proizvodjacSifra + " u bazi");
-                }
-                _context.Automobili.Update(automobil);
-                _context.SaveChanges();
-                return Ok(new
-                {
-                    poruka = "Proizvođač " + proizvodjac.Naziv + " dodan na grupu "
-                 + automobil.Naziv
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(
-                       StatusCodes.Status503ServiceUnavailable,
-                       ex.Message);
-            }
-        }
-
-
-
-        [HttpPost]
-        [Route("{sifra:int}/dodaj/{vrstaautaSifra:int}")]
-        public IActionResult DodajVrstuAuta(int sifra, int vrstaautaSifra)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (sifra <= 0 || vrstaautaSifra <= 0)
-            {
-                return BadRequest("Šifra grupe ili vrste auta nije dobra");
-            }
-            try
-            {
-                var automobil = _context.Automobili
-                    .Include(g => g.VrstaAuta)
-                    .FirstOrDefault(g => g.Sifra == sifra);
-                if (automobil == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
-                }
-                var vrstaauta = _context.VrsteAuta.Find(vrstaautaSifra);
-                if (vrstaauta == null)
-                {
-                    return BadRequest("Ne postoji vrsta auta s šifrom " + vrstaautaSifra + " u bazi");
-                }
-                _context.Automobili.Update(automobil);
-                _context.SaveChanges();
-                return Ok(new
-                {
-                    poruka = "Vrsta auta " + vrstaauta.Naziv + " dodan na grupu "
-                 + automobil.Naziv
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(
-                       StatusCodes.Status503ServiceUnavailable,
-                       ex.Message);
-            }
-        }
-
-
-        [HttpDelete]
-        [Route("{sifra:int}/obrisi/{proizvodjacSifra:int}")]
-        public IActionResult ObrisiProizvodjaca(int sifra, int proizvodjacSifra)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (sifra <= 0 || proizvodjacSifra <= 0)
-            {
-                return BadRequest("Šifra grupe ili Proizvođač nije dobra");
-            }
-            try
-            {
-                var automobil = _context.Automobili
-                    .Include(g => g.Proizvodjac)
-                    .FirstOrDefault(g => g.Sifra == sifra);
-                if (automobil == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
-                }
-                var proizvodjac = _context.Proizvodjaci.Find(proizvodjacSifra);
-                if (proizvodjac == null)
-                {
-                    return BadRequest("Ne postoji Proizvođač s šifrom " + proizvodjacSifra + " u bazi");
-                }
-                _context.Automobili.Update(automobil);
-                _context.SaveChanges();
-
-                return Ok(new
-                {
-                    poruka = "Proizvođač " + proizvodjac.Naziv + " obrisan iz grupe "
-                 + automobil.Naziv
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { poruka = ex.Message });
-
-            }
-        }
-
-
-        [HttpDelete]
-        [Route("{sifra:int}/obrisi/{vrstaautaSifra:int}")]
-        public IActionResult ObrisiVrstuAuta(int sifra, int vrstaautaSifra)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (sifra <= 0 || vrstaautaSifra <= 0)
-            {
-                return BadRequest("Šifra grupe ili Vrsta Auta nije dobra");
-            }
-            try
-            {
-                var automobil = _context.Automobili
-                    .Include(g => g.VrstaAuta)
-                    .FirstOrDefault(g => g.Sifra == sifra);
-                if (automobil == null)
-                {
-                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
-                }
-                var vrstaauta = _context.VrsteAuta.Find(vrstaautaSifra);
-                if (vrstaauta == null)
-                {
-                    return BadRequest("Ne postoji Vrsta Auta s šifrom " + vrstaautaSifra + " u bazi");
-                }
-                _context.Automobili.Update(automobil);
-                _context.SaveChanges();
-
-                return Ok(new
-                {
-                    poruka = "Vrsta Auta " + vrstaauta.Naziv + " obrisan iz grupe "
-                 + automobil.Naziv
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { poruka = ex.Message });
-
             }
         }
 
