@@ -43,6 +43,7 @@ namespace Backend.Controllers
             try
             {
                 e = _context.Automobili.Include(g => g.Proizvodjac).FirstOrDefault(g => g.Sifra == sifra);
+                e = _context.Automobili.Include(g => g.VrstaAuta).FirstOrDefault(g => g.Sifra == sifra);
             }
             catch (Exception ex)
             {
@@ -78,10 +79,25 @@ namespace Backend.Controllers
                 return NotFound(new { poruka = "Proizvodjaci ne postoje u bazi" });
             }
 
+            VrstaAuta? esa;
+            try
+            {
+                esa = _context.VrsteAuta.Find(dto.VrstaAutaSifra);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+            if (esa == null)
+            {
+                return NotFound(new { poruka = "Vrste auta ne postoje u bazi" });
+            }
+
             try
             {
                 var e = _mapper.Map<Automobil>(dto);
                 e.Proizvodjac = es;
+                e.VrstaAuta = esa;
                 _context.Automobili.Add(e);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, _mapper.Map<AutomobilDTORead>(e));
@@ -110,6 +126,7 @@ namespace Backend.Controllers
                 try
                 {
                     e = _context.Automobili.Include(g => g.Proizvodjac).FirstOrDefault(x => x.Sifra == sifra);
+                    e = _context.Automobili.Include(g => g.VrstaAuta).FirstOrDefault(x => x.Sifra == sifra);
                 }
                 catch (Exception ex)
                 {
@@ -134,8 +151,23 @@ namespace Backend.Controllers
                     return NotFound(new { poruka = "Proizvodjac ne postoji u bazi" });
                 }
 
+                VrstaAuta? esa;
+                try
+                {
+                    esa = _context.VrsteAuta.Find(dto.VrstaAutaSifra);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { poruka = ex.Message });
+                }
+                if (esa == null)
+                {
+                    return NotFound(new { poruka = "Vrsta auta ne postoji u bazi" });
+                }
+
                 e = _mapper.Map(dto, e);
                 e.Proizvodjac = es;
+                e.VrstaAuta = esa;
                 _context.Proizvodjaci.Update(es);
                 _context.SaveChanges();
 
@@ -184,6 +216,32 @@ namespace Backend.Controllers
 
 
         [HttpGet]
+        [Route("Proizvodjaci/{sifraAutomobili:int}")]
+        public ActionResult<List<ProizvodjacDTORead>> GetProizvodjaci(int sifraAutomobili)
+        {
+            if (!ModelState.IsValid || sifraAutomobili <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var p = _context.Automobili
+                    .Include(i => i.Proizvodjac).FirstOrDefault(x => x.Sifra == sifraAutomobili);
+                if (p == null)
+                {
+                    return BadRequest("Ne postoji grupa s šifrom " + sifraAutomobili + " u bazi");
+                }
+
+                return Ok(_mapper.Map<List<ProizvodjacDTORead>>(p.Proizvodjac));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+            }
+        }
+
+
+        [HttpGet]
         [Route("VrsteAuta/{sifraAutomobili:int}")]
         public ActionResult<List<VrstaAutaDTORead>> GetVrsteAuta(int sifraAutomobili)
         {
@@ -205,6 +263,49 @@ namespace Backend.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new { poruka = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        [Route("{sifra:int}/dodaj/{proizvodjacSifra:int}")]
+        public IActionResult DodajProizvodjaca(int sifra, int proizvodjacSifra)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (sifra <= 0 || proizvodjacSifra <= 0)
+            {
+                return BadRequest("Šifra grupe ili proizvođača nije dobra");
+            }
+            try
+            {
+                var automobil = _context.Automobili
+                    .Include(g => g.Proizvodjac)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+                if (automobil == null)
+                {
+                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
+                }
+                var proizvodjac = _context.VrsteAuta.Find(proizvodjacSifra);
+                if (proizvodjac == null)
+                {
+                    return BadRequest("Ne postoji vrsta auta s šifrom " + proizvodjacSifra + " u bazi");
+                }
+                _context.Automobili.Update(automobil);
+                _context.SaveChanges();
+                return Ok(new
+                {
+                    poruka = "Proizvođač " + proizvodjac.Naziv + " dodan na grupu "
+                 + automobil.Naziv
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                       StatusCodes.Status503ServiceUnavailable,
+                       ex.Message);
             }
         }
 
@@ -249,6 +350,49 @@ namespace Backend.Controllers
                 return StatusCode(
                        StatusCodes.Status503ServiceUnavailable,
                        ex.Message);
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("{sifra:int}/obrisi/{proizvodjacSifra:int}")]
+        public IActionResult ObrisiProizvodjaca(int sifra, int proizvodjacSifra)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (sifra <= 0 || proizvodjacSifra <= 0)
+            {
+                return BadRequest("Šifra grupe ili Proizvođač nije dobra");
+            }
+            try
+            {
+                var automobil = _context.Automobili
+                    .Include(g => g.Proizvodjac)
+                    .FirstOrDefault(g => g.Sifra == sifra);
+                if (automobil == null)
+                {
+                    return BadRequest("Ne postoji grupa s šifrom " + sifra + " u bazi");
+                }
+                var proizvodjac = _context.Proizvodjaci.Find(proizvodjacSifra);
+                if (proizvodjac == null)
+                {
+                    return BadRequest("Ne postoji Proizvođač s šifrom " + proizvodjacSifra + " u bazi");
+                }
+                _context.Automobili.Update(automobil);
+                _context.SaveChanges();
+
+                return Ok(new
+                {
+                    poruka = "Proizvođač " + proizvodjac.Naziv + " obrisan iz grupe "
+                 + automobil.Naziv
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { poruka = ex.Message });
+
             }
         }
 
