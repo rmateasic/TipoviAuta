@@ -7,7 +7,12 @@ export const RoutNames={
 
     VRSTAAUTA_PREGLED: '/vrsteauta', 
     VRSTAAUTA_NOVI: '/vrsteauta/dodaj',
-    VRSTAAUTA_PROMJENA: 'vrsteauta/:sifra'
+    VRSTAAUTA_PROMJENA: 'vrsteauta/:sifra',
+
+    AUTOMOBIL_PREGLED: '/automobili', 
+    AUTOMOBIL_NOVI: '/automobili/dodaj',
+    AUTOMOBIL_PROMJENA: 'automobili/:sifra'
+
 
     
 }

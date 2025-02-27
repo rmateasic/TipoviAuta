@@ -12,7 +12,11 @@ export default function ProizvodjaciPromjena(){
     const routeParams = useParams();
 
     async function dohvatiProizvodjace(){
-        const odgovor = await ProizvodjacService.getBySifra(routeParams.sifra)
+        const odgovor = await ProizvodjacService.getBySifra(routeParams.sifra);
+        if(odgovor.greska){
+            alert(odgovor.poruka)
+            return
+        }
         setProizvodjac(odgovor)
     }
 
@@ -31,7 +35,7 @@ export default function ProizvodjaciPromjena(){
 
     }
 
-    function odradiSubmit(e){ // e je event
+    function odradiSubmit(e){
         e.preventDefault();
 
         let podaci = new FormData(e.target);

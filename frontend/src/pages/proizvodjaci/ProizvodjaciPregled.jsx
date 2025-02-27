@@ -3,21 +3,26 @@ import ProizvodjacService from "../../services/ProizvodjacService"
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutNames } from "../../constant";
+import { GrValidate } from "react-icons/gr";
 
 
 export default function ProizvodjaciPregled(){
 
 const[proizvodjaci, setProizvodjaci] = useState();
+
 const navigate = useNavigate();
  
     async function dohvatiProizvodjace() {
 
         
-        const odgovor = await ProizvodjacService.get()
+        const odgovor = await ProizvodjacService.get();
+        if(odgovor.greska){
+            alert(odgovor.poruka)
+            return
+        }
         setProizvodjaci(odgovor)
     }
 
-    // hooks (kuka) se izvodi prilikom dolaska
     useEffect(()=>{
         dohvatiProizvodjace();
     }, [])

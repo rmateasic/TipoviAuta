@@ -11,6 +11,9 @@ import ProizvodjaciPromjena from './pages/proizvodjaci/ProizvodjaciPromjena'
 import VrsteautaPregled from './pages/vrsteauta/VrsteAutaPregled'
 import VrsteautaPromjena from './pages/vrsteauta/VrsteAutaPromjena'
 import VrsteautaDodaj from './pages/vrsteauta/VrsteAutaDodaj'
+import AutomobiliPregled from './pages/automobili/AutomobiliPregled'
+import AutomobiliPromjena from './pages/automobili/AutomobiliPromjena'
+import AutomobiliDodaj from './pages/automobili/AutomobiliDodaj'
 
 function App() {
 
@@ -28,7 +31,11 @@ function App() {
         <Route path={RoutNames.VRSTAAUTA_PREGLED} element={<VrsteautaPregled />} />
         <Route path={RoutNames.VRSTAAUTA_NOVI} element={<VrsteautaDodaj />} />
         <Route path={RoutNames.VRSTAAUTA_PROMJENA} element={<VrsteautaPromjena />} />
-       </Routes>
+
+        <Route path={RoutNames.AUTOMOBIL_PREGLED} element={<AutomobiliPregled />} />
+        <Route path={RoutNames.AUTOMOBIL_NOVI} element={<AutomobiliDodaj />} />
+        <Route path={RoutNames.AUTOMOBIL_PROMJENA} element={<AutomobiliPromjena />} />
+        </Routes>
 
 
        <hr />

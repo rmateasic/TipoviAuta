@@ -1,8 +1,8 @@
-import { HttpService } from "./HttpService";
+import { HttpService } from "./HttpService"
 
 
-async function get() {
-    return await HttpService.get('/Vrstaauta')
+async function get(){
+    return await HttpService.get('/Automobil')
     .then((odgovor)=>{
     
         return odgovor.data;
@@ -10,21 +10,29 @@ async function get() {
     .catch((e)=>{console.error(e)})
 }
 
-async function getBySifra(sifra) {
-    return await HttpService.get('/Vrstaauta/' + sifra)
+async function getBySifra(sifra){
+    return await HttpService.get('/Automobil/' + sifra)
+    .then((odgovor)=>{
+        return {greska: false, poruka: odgovor.data}
+    })
+    .catch(()=>{
+        return {greska: true, poruka: 'Ne postoji Automobil!'}
+    })
+}
+
+async function obrisi(sifra) {
+    return await HttpService.delete('/Automobil/' + sifra)
     .then((odgovor)=>{
     
         return {greska: false, poruka: odgovor.data}
     })
-    .catch((e)=>{
-        return {greska: true, poruka: 'Ne postoji Vrsta auta!'}
+    .catch(()=>{
+        return {greska: true, poruka: 'Automobil se ne može obrisati!'}
     })
 }
 
-
-
-async function dodaj(vrstaauta){
-    return await HttpService.post('Vrstaauta', vrstaauta)
+async function dodaj(Automobil) {
+    return await HttpService.post('/Automobil',Automobil)
     .then((odgovor)=>{
         return {greska: false, poruka: odgovor.data}
     })
@@ -37,13 +45,13 @@ async function dodaj(vrstaauta){
                 }
                 return {greska: true, poruka: poruke}
             default:
-                return {greska: true, poruka: 'Vrsta auta se ne može dodati!'}
+                return {greska: true, poruka: 'Automobil se ne može dodati!'}
         }
     })
 }
 
-async function promjena(sifra,vrstaauta){
-    return await HttpService.put('/Vrstaauta/' + sifra, vrstaauta)
+async function promjena(sifra,Automobil) {
+    return await HttpService.put('/Automobil/' + sifra,Automobil)
     .then((odgovor)=>{
         return {greska: false, poruka: odgovor.data}
     })
@@ -57,25 +65,15 @@ async function promjena(sifra,vrstaauta){
                 console.log(poruke)
                 return {greska: true, poruka: poruke}
             default:
-                return {greska: true, poruka: 'Vrsta auta se ne može promjeniti!'}
+                return {greska: true, poruka: 'Automobil se ne može promjeniti!'}
         }
-    })
-}
-
-async function obrisi(sifra){
-    return await HttpService.delete('/Vrstaauta/' + sifra)
-    .then((odgovor)=>{
-        return {greska: false, poruka: odgovor.data}
-    })
-    .catch(()=>{
-        return {greska: true, poruka: 'Vrsta auta se ne može obrisati!'}
     })
 }
 
 export default{
     get,
     getBySifra,
+    obrisi,
     dodaj,
-    promjena,
-    obrisi
+    promjena
 }
