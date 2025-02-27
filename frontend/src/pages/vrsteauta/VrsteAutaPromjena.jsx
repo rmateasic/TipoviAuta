@@ -12,7 +12,11 @@ export default function VrsteautaPromjena(){
     const routeParams = useParams();
 
     async function dohvatiVrsteauta(){
-        const odgovor = await VrstaautaService.getBySifra(routeParams.sifra)
+        const odgovor = await VrstaautaService.getBySifra(routeParams.sifra);
+        if(odgovor.greska){
+            alert(odgovor.poruka)
+            return
+        }
         setVrstaauta(odgovor)
     }
 
@@ -31,7 +35,7 @@ export default function VrsteautaPromjena(){
 
     }
 
-    function odradiSubmit(e){ // e je event
+    function odradiSubmit(e){
         e.preventDefault();
 
         let podaci = new FormData(e.target);
@@ -50,7 +54,8 @@ export default function VrsteautaPromjena(){
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required defaultValue={vrstaauta.naziv}/>
+                <Form.Control type="text" name="naziv" required 
+                defaultValue={vrstaauta.naziv}/>
             </Form.Group>
 
             <hr/>

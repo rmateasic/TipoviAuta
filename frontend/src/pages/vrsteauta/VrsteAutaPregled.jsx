@@ -8,16 +8,20 @@ import { RoutNames } from "../../constant";
 export default function VrsteautaPregled(){
 
 const[vrsteauta, setVrsteauta] = useState();
+
 const navigate = useNavigate();
  
     async function dohvatiVrsteauta() {
 
         
         const odgovor = await VrstaautaService.get()
+        if(odgovor.greska){
+            alert(odgovor.poruka)
+            return
+        }
         setVrsteauta(odgovor)
     }
 
-    // hooks (kuka) se izvodi prilikom dolaska
     useEffect(()=>{
         dohvatiVrsteauta();
     }, [])
@@ -58,14 +62,23 @@ const navigate = useNavigate();
                             {vrstaauta.naziv}
                         </td>
                         <td>
-                            <Button
-                            onClick={()=>navigate(`/vrsteauta/${vrstaauta.sifra}`)}
-                            >Promjena</Button>
-                            &nbsp;&nbsp;&nbsp;
-                            <Button
+
+                        <Button
                             variant="danger"
                             onClick={()=>obrisi(vrstaauta.sifra)}
-                            >Obriši</Button>
+                            >
+                            Obriši
+                            </Button>
+
+                            &nbsp;&nbsp;&nbsp;
+
+                            <Button
+                            onClick={()=>navigate(`/vrsteauta/${vrstaauta.sifra}`)}
+                            >
+                            Promjena
+                            </Button>
+                           
+                            
                         </td>
                     </tr>
                 ))}

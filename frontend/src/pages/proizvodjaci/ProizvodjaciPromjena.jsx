@@ -55,12 +55,14 @@ export default function ProizvodjaciPromjena(){
         <Form onSubmit={odradiSubmit}>
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required defaultValue={proizvodjac.naziv}/>
+                <Form.Control type="text" name="naziv" required 
+                defaultValue={proizvodjac.naziv}/>
             </Form.Group>
 
             <Form.Group controlId="zemlja">
                 <Form.Label>Zemlja</Form.Label>
-                <Form.Control type="text" name="zemlja" required defaultValue={proizvodjac.zemlja}/>
+                <Form.Control type="text" name="zemlja" required 
+                defaultValue={proizvodjac.zemlja}/>
             </Form.Group>
 
             <hr/>

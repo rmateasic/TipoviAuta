@@ -67,14 +67,22 @@ const navigate = useNavigate();
                             {proizvodjac.zemlja}
                         </td>
                         <td>
-                            <Button
-                            onClick={()=>navigate(`/proizvodjaci/${proizvodjac.sifra}`)}
-                            >Promjena</Button>
-                            &nbsp;&nbsp;&nbsp;
+
                             <Button
                             variant="danger"
                             onClick={()=>obrisi(proizvodjac.sifra)}
-                            >Obriši</Button>
+                            >
+                            Obriši
+                            </Button>
+
+                            &nbsp;&nbsp;&nbsp;
+
+                            <Button
+                            onClick={()=>navigate(`/proizvodjaci/${proizvodjac.sifra}`)}
+                            >
+                            Promjena
+                            </Button>
+                            
                         </td>
                     </tr>
                 ))}

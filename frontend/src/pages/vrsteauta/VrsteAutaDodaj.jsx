@@ -18,7 +18,7 @@ export default function VrsteautaDodaj(){
 
     }
 
-    function odradiSubmit(e){ // e je event
+    function odradiSubmit(e){
         e.preventDefault();
 
         let podaci = new FormData(e.target);
