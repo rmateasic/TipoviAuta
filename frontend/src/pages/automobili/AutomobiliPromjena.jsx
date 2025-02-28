@@ -25,7 +25,7 @@ export default function AutomobiliPromjena() {
 
   async function dohvatiVrsteauta(){
     const odgovor = await VrstaautaService.get();
-    setVrsteauta(odgovor.poruka);
+    setVrsteauta(odgovor);
   }
 
   async function dohvatiAutomobil() {
@@ -37,7 +37,7 @@ export default function AutomobiliPromjena() {
     let automobil = odgovor.poruka;
     setAutomobil(automobil);
     setProizvodjacSifra(automobil.proizvodjacSifra); 
-    setVrstaautaSifra(automobil.vrstaautaSifra); 
+    setVrstaautaSifra(automobil.vrstaAutaSifra); 
   }
 
   async function dohvatiInicijalnePodatke() {
@@ -70,9 +70,9 @@ export default function AutomobiliPromjena() {
         naziv: podaci.get('naziv'),
         gorivo: podaci.get('gorivo'),
         model: podaci.get('model'),
-        godiste: int.get('godiste'),
-        proizvodjacSifra: parseInt(proizvodjacSifra),
-        vrstaautaSifra: parseInt(vrstaautaSifra)
+        godiste: parseInt(podaci.get('godiste')),
+        proizvodjacSifra: proizvodjacSifra,
+        vrstaAutaSifra: vrstaautaSifra
     });
   }
 

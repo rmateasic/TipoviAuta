@@ -20,6 +20,8 @@ export default function AutomobiliPregled(){
         .catch((e)=>{console.log(e)});
     }
 
+    
+
     async function obrisiAutomobil(sifra) {
         const odgovor = await Service.obrisi(sifra);
         if(odgovor.greska){
@@ -68,6 +70,8 @@ export default function AutomobiliPregled(){
                                         variant='primary'
                                         onClick={()=>{navigate(`/automobili/${entitet.sifra}`)}}
                                     >
+                                        Promjena
+
                                         <FaEdit 
                                     size={25}
                                     />
@@ -79,6 +83,8 @@ export default function AutomobiliPregled(){
                                         variant='danger'
                                         onClick={() => obrisiAutomobil(entitet.sifra)}
                                     >
+                                        Obriši
+
                                         <FaTrash
                                         size={25}/>
                                     </Button>
