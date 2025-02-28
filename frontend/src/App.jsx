@@ -3,7 +3,7 @@ import './App.css'
 import { Container } from 'react-bootstrap'
 import NavBarEdunova from './components/NavBarEdunova'
 import { Route, Routes } from 'react-router-dom'
-import { RoutNames } from './constant'
+import { RouteNames } from './constants'
 import Pocetna from './pages/Pocetna'
 import ProizvodjaciPregled from './pages/Proizvodjaci/ProizvodjaciPregled'
 import ProizvodjaciDodaj from './pages/proizvodjaci/ProizvodjaciDodaj'
@@ -22,19 +22,19 @@ function App() {
       <Container>
        <NavBarEdunova />
        <Routes>
-        <Route path={RoutNames.HOME} element={<Pocetna />} />
+        <Route path={RouteNames.HOME} element={<Pocetna />} />
 
-        <Route path={RoutNames.PROIZVODJAC_PREGLED} element={<ProizvodjaciPregled />} />
-        <Route path={RoutNames.PROIZVODJAC_NOVI} element={<ProizvodjaciDodaj />} />
-        <Route path={RoutNames.PROIZVODJAC_PROMJENA} element={<ProizvodjaciPromjena />} />
+        <Route path={RouteNames.PROIZVODJAC_PREGLED} element={<ProizvodjaciPregled />} />
+        <Route path={RouteNames.PROIZVODJAC_NOVI} element={<ProizvodjaciDodaj />} />
+        <Route path={RouteNames.PROIZVODJAC_PROMJENA} element={<ProizvodjaciPromjena />} />
 
-        <Route path={RoutNames.VRSTAAUTA_PREGLED} element={<VrsteautaPregled />} />
-        <Route path={RoutNames.VRSTAAUTA_NOVI} element={<VrsteautaDodaj />} />
-        <Route path={RoutNames.VRSTAAUTA_PROMJENA} element={<VrsteautaPromjena />} />
+        <Route path={RouteNames.VRSTAAUTA_PREGLED} element={<VrsteautaPregled />} />
+        <Route path={RouteNames.VRSTAAUTA_NOVI} element={<VrsteautaDodaj />} />
+        <Route path={RouteNames.VRSTAAUTA_PROMJENA} element={<VrsteautaPromjena />} />
 
-        <Route path={RoutNames.AUTOMOBIL_PREGLED} element={<AutomobiliPregled />} />
-        <Route path={RoutNames.AUTOMOBIL_NOVI} element={<AutomobiliDodaj />} />
-        <Route path={RoutNames.AUTOMOBIL_PROMJENA} element={<AutomobiliPromjena />} />
+        <Route path={RouteNames.AUTOMOBIL_PREGLED} element={<AutomobiliPregled />} />
+        <Route path={RouteNames.AUTOMOBIL_NOVI} element={<AutomobiliDodaj />} />
+        <Route path={RouteNames.AUTOMOBIL_PROMJENA} element={<AutomobiliPromjena />} />
         </Routes>
 
 

@@ -2,13 +2,12 @@ import { use, useEffect, useState } from "react"
 import ProizvodjacService from "../../services/ProizvodjacService"
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { RoutNames } from "../../constant";
-import { GrValidate } from "react-icons/gr";
+import { RouteNames } from "../../constants";
 
 
 export default function ProizvodjaciPregled(){
 
-const[proizvodjaci, setProizvodjaci] = useState();
+const[proizvodjaci, setProizvodjaci] = useState([]);
 
 const navigate = useNavigate();
  
@@ -20,7 +19,7 @@ const navigate = useNavigate();
             alert(odgovor.poruka)
             return
         }
-        setProizvodjaci(odgovor)
+        setProizvodjaci(odgovor.poruka)
     }
 
     useEffect(()=>{
@@ -46,7 +45,7 @@ const navigate = useNavigate();
     return(
         <>
         <Link
-        to={RoutNames.PROIZVODJAC_NOVI}
+        to={RouteNames.PROIZVODJAC_NOVI}
         className="btn btn-success siroko"
         >Dodaj novog proizvođača</Link>
         <Table striped bordered hover responsive>

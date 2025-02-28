@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { RoutNames } from "../../constant";
+import { RouteNames } from "../../constants";
 import ProizvodjacService from "../../services/ProizvodjacService";
 import { useEffect, useState } from "react";
 
@@ -31,7 +31,7 @@ export default function ProizvodjaciPromjena(){
             alert(odgovor.poruka)
             return
         }
-        navigate(RoutNames.PROIZVODJAC_PREGLED)
+        navigate(RouteNames.PROIZVODJAC_PREGLED)
 
     }
 
@@ -70,7 +70,7 @@ export default function ProizvodjaciPromjena(){
             <Row>
             <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
             <Link
-            to={RoutNames.PROIZVODJAC_PREGLED}
+            to={RouteNames.PROIZVODJAC_PREGLED}
             className="btn btn-danger siroko"
             >Odustani</Link>
             </Col>

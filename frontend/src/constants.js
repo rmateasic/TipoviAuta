@@ -1,4 +1,4 @@
-export const RoutNames={
+export const RouteNames={
     HOME: '/',
 
     PROIZVODJAC_PREGLED: '/proizvodjaci', 

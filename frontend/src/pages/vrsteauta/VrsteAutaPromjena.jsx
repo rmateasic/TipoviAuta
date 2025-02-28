@@ -1,6 +1,6 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { RoutNames } from "../../constant";
+import { RouteNames } from "../../constants";
 import VrstaautaService from "../../services/VrstaautaService";
 import { useEffect, useState } from "react";
 
@@ -31,7 +31,7 @@ export default function VrsteautaPromjena(){
             alert(odgovor.poruka)
             return
         }
-        navigate(RoutNames.VRSTAAUTA_PREGLED)
+        navigate(RouteNames.VRSTAAUTA_PREGLED)
 
     }
 
@@ -63,7 +63,7 @@ export default function VrsteautaPromjena(){
             <Row>
             <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
             <Link
-            to={RoutNames.VRSTAAUTA_PREGLED}
+            to={RouteNames.VRSTAAUTA_PREGLED}
             className="btn btn-danger siroko"
             >Odustani</Link>
             </Col>

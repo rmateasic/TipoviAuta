@@ -2,7 +2,7 @@ import { use, useEffect, useState } from "react"
 import VrstaautaService from "../../services/VrstaautaService"
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { RoutNames } from "../../constant";
+import { RouteNames } from "../../constants";
 
 
 export default function VrsteautaPregled(){
@@ -45,7 +45,7 @@ const navigate = useNavigate();
     return(
         <>
         <Link
-        to={RoutNames.VRSTAAUTA_NOVI}
+        to={RouteNames.VRSTAAUTA_NOVI}
         className="btn btn-success siroko"
         >Dodaj novu vrstu auta</Link>
         <Table striped bordered hover responsive>
