@@ -60,7 +60,7 @@ export default function AutomobiliPregled(){
                             <td>{entitet.naziv}</td>
                             <td>{entitet.proizvodjacNaziv}</td>
                             <td>{entitet.model}</td>
-                            <td>{entitet.vrstaautaNaziv}</td>
+                            <td>{entitet.vrstaAutaNaziv}</td>
                             <td>{entitet.gorivo}</td>
                             <td>{entitet.godiste}</td>
                             <td className="sredina">

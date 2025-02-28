@@ -24,8 +24,8 @@ export default function AutomobiliDodaj() {
 
   async function dohvatiVrsteauta(){
     const odgovor = await VrstaautaService.get();
-    setVrsteauta(odgovor.poruka);
-    setVrstaautaSifra(odgovor.poruka[0].sifra);
+    setVrsteauta(odgovor);
+    setVrstaautaSifra(odgovor[0].sifra);
   }
 
 
@@ -54,9 +54,9 @@ export default function AutomobiliDodaj() {
       naziv: podaci.get('naziv'),
       gorivo: podaci.get('gorivo'),
       model: podaci.get('model'),
-      godiste: int.get('godiste'),
-      proizvodjacSifra: parseInt(proizvodjacSifra),
-      vrstaautaSifra: parseInt(vrstaautaSifra)
+      godiste: parseInt(podaci.get('godiste')),
+      proizvodjacSifra: proizvodjacSifra,
+      vrstaAutaSifra: vrstaautaSifra
     });
   }
 
