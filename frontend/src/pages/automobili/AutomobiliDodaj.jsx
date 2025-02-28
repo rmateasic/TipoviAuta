@@ -62,7 +62,7 @@ export default function AutomobiliDodaj() {
 
   return (
       <>
-      Dodavanje nove automobile
+      Dodavanje automobila
       
       <Form onSubmit={obradiSubmit}>
           <Form.Group controlId="naziv">
@@ -122,7 +122,7 @@ export default function AutomobiliDodaj() {
               </Col>
               <Col xs={6} sm={6} md={9} lg={6} xl={6} xxl={6}>
               <Button variant="primary" type="submit" className="siroko">
-                  Dodaj novi automobil
+                  Dodaj automobil
               </Button>
               </Col>
           </Row>

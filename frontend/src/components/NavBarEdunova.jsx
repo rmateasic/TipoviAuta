@@ -25,15 +25,18 @@ export default function NavBarEdunova(){
                 <Nav className="me-auto">
                     
                     <NavDropdown title="Programi" id="basic-nav-dropdown">
+   
                     <NavDropdown.Item 
-
                     onClick={()=>navigate(RouteNames.PROIZVODJAC_PREGLED)}
-                    
                     >Prizvođači</NavDropdown.Item>
 
                     <NavDropdown.Item
                     onClick={()=>navigate(RouteNames.VRSTAAUTA_PREGLED)}
                     >Vrste Auta</NavDropdown.Item>
+
+                    <NavDropdown.Item
+                    onClick={()=>navigate(RouteNames.AUTOMOBIL_PREGLED)}
+                    >Automobili</NavDropdown.Item>
                    
                     </NavDropdown>
                     <Nav.Link href='https://rmateasic-001-site1.ntempurl.com/swagger' target='_blank'>Swagger</Nav.Link>

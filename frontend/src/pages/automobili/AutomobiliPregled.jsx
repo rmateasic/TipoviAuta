@@ -40,17 +40,17 @@ export default function AutomobiliPregled(){
             <Link to={RouteNames.AUTOMOBIL_NOVI} className="btn btn-success siroko">
                 <IoIosAdd
                 size={25}
-                /> Dodaj
+                /> Dodaj novi automobil
             </Link>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
                         <th>Naziv</th>
-                        <th>Gorivo</th>
+                        <th> Proizvođac</th>
                         <th>Model</th>
-                        <th> Godiste</th>
-                        <th> Proizvodjac</th>
-                        <th> Vrstaauta</th>
+                        <th> Vrsta auta</th>
+                        <th>Gorivo</th>
+                        <th> Godište</th>
                         <th>Akcija</th>
                     </tr>
                 </thead>
@@ -59,9 +59,9 @@ export default function AutomobiliPregled(){
                         <tr key={index}>
                             <td>{entitet.naziv}</td>
                             <td>{entitet.proizvodjacNaziv}</td>
+                            <td>{entitet.model}</td>
                             <td>{entitet.vrstaautaNaziv}</td>
                             <td>{entitet.gorivo}</td>
-                            <td>{entitet.model}</td>
                             <td>{entitet.godiste}</td>
                             <td className="sredina">
                                     <Button

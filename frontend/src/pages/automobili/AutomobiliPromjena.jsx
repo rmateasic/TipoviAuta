@@ -23,7 +23,7 @@ export default function AutomobiliPromjena() {
     setProizvodjaci(odgovor.poruka);
   }
 
-  async function dohvatiVrsteuta(){
+  async function dohvatiVrsteauta(){
     const odgovor = await VrstaautaService.get();
     setVrsteauta(odgovor.poruka);
   }
@@ -42,7 +42,7 @@ export default function AutomobiliPromjena() {
 
   async function dohvatiInicijalnePodatke() {
     await dohvatiProizvodjace();
-    await dohvatiVrsteuta();
+    await dohvatiVrsteauta();
     await dohvatiAutomobil();
   }
 
