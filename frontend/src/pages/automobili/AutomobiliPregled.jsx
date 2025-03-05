@@ -23,6 +23,9 @@ export default function AutomobiliPregled(){
     
 
     async function obrisiAutomobil(sifra) {
+        if(!confirm('Sigurno obrisati')){
+            return
+        }
         const odgovor = await Service.obrisi(sifra);
         if(odgovor.greska){
             alert(odgovor.poruka);
