@@ -11,7 +11,9 @@ export const RouteNames={
 
     AUTOMOBIL_PREGLED: '/automobili', 
     AUTOMOBIL_NOVI: '/automobili/dodaj',
-    AUTOMOBIL_PROMJENA: 'automobili/:sifra'
+    AUTOMOBIL_PROMJENA: 'automobili/:sifra',
+
+    ERA: '/era'
 
 
     

@@ -14,6 +14,7 @@ import VrsteautaDodaj from './pages/vrsteauta/VrsteAutaDodaj'
 import AutomobiliPregled from './pages/automobili/AutomobiliPregled'
 import AutomobiliPromjena from './pages/automobili/AutomobiliPromjena'
 import AutomobiliDodaj from './pages/automobili/AutomobiliDodaj'
+import EraDijagram from './pages/EraDiagram'
 
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
         <Route path={RouteNames.AUTOMOBIL_PREGLED} element={<AutomobiliPregled />} />
         <Route path={RouteNames.AUTOMOBIL_NOVI} element={<AutomobiliDodaj />} />
         <Route path={RouteNames.AUTOMOBIL_PROMJENA} element={<AutomobiliPromjena />} />
+
+        <Route path={RouteNames.ERA} element={<EraDijagram />} /> 
+
         </Routes>
 
 
