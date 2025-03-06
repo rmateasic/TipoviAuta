@@ -14,7 +14,7 @@ import VrsteautaDodaj from './pages/vrsteauta/VrsteAutaDodaj'
 import AutomobiliPregled from './pages/automobili/AutomobiliPregled'
 import AutomobiliPromjena from './pages/automobili/AutomobiliPromjena'
 import AutomobiliDodaj from './pages/automobili/AutomobiliDodaj'
-import EraDijagram from './pages/EraDiagram'
+import EraDijagram from './pages/EraDijagram'
 
 function App() {
 
